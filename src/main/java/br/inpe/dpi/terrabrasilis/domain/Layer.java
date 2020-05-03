@@ -27,12 +27,10 @@ public class Layer implements Serializable {
 	private String id;
 	//@Indexed(unique = true)
 	private String name;
-	private String nameAuthenticated;
 	private String title;
 	private String description;
 	private String attribution;
 	private String workspace;
-	private String metadata;
     private String dashboard;
 	private String capabilitiesUrl;
 	private int stackOrder;
@@ -44,6 +42,8 @@ public class Layer implements Serializable {
 	private boolean timeDimension;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime created;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+        private LocalDateTime date;
 	private boolean aggregatable;
 
 	@DBRef
@@ -55,6 +55,8 @@ public class Layer implements Serializable {
 	private List<Subdomain> subdomains;
 	@DBRef
 	private List<Download> downloads;
+        @DBRef
+        private Metadata metadata;
 
 	public Layer() {
 		this.created = LocalDateTime.now();
@@ -74,13 +76,6 @@ public class Layer implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public void setNameAuthenticated(String nameAuthenticated) {
-		this.nameAuthenticated = nameAuthenticated;
-	}
-	public String getNameAuthenticated() {
-		return nameAuthenticated;
 	}
 
 	public String getTitle() {
@@ -170,6 +165,14 @@ public class Layer implements Serializable {
 	public void setCreated(LocalDateTime created) {
 		this.created = created;
 	}
+        
+        public LocalDateTime getDate() {
+            return date;
+	}
+
+	public void setDate(LocalDateTime date) {
+            this.date = date;
+	}
 
 	public Datasource getDatasource() {
 		return datasource;
@@ -177,14 +180,6 @@ public class Layer implements Serializable {
 
 	public void setDatasource(Datasource datasource) {
 		this.datasource = datasource;
-	}
-
-	public String getMetadata() {
-		return metadata;
-	}
-
-	public void setMetadata(String metadata) {
-		this.metadata = metadata;
 	}
 
         public String getDashboard() {
@@ -228,6 +223,14 @@ public class Layer implements Serializable {
 	public boolean getTimeDimension() {
 		return this.timeDimension;
 	}
+        
+        public Metadata getMetadata() {
+            return metadata;
+        }
+
+        public void setMetadata(Metadata metadata) {
+            this.metadata = metadata;
+        }        
 
 	public boolean isAggregatable() {
 		return this.aggregatable;

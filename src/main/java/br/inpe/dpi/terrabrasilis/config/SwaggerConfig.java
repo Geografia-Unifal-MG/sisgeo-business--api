@@ -29,11 +29,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-          "TerraBrasilis Business REST API", 
+          "Sisgeo Business REST API", 
           "Using this API you can request for all data like Visions, Layers, Tools, Datasources, Downloads and Subddomains", 
           "0.0.1", 
           "Terms of service", 
-          new Contact("Jether Rodrigues", "http://terrabrasilis.dpi.inpe.br", "jetherrodrigues@gmail.com"), 
+          new Contact("Name Placeholder", "https://sisgeo.unifal-mg.edu.br", "placeholder@gmail.com"), 
           "Apache License Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0", Collections.emptyList());
     }
 }
