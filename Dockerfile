@@ -1,7 +1,5 @@
 FROM openjdk:8-jdk-alpine
 
-LABEL Jether Rodrigues<jetherrodrigues@gmail.com>
-
 VOLUME /tmp
 
 ARG JAR_FILE

@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # $1 = version informed in command line
-docker push terrabrasilis/business-api:$1
+docker push geografiaunifal/sisgeo-business-api:$1

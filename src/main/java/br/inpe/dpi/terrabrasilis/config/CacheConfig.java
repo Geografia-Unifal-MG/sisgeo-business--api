@@ -14,7 +14,7 @@ public class CacheConfig {
     @Bean
     public CacheManager cacheManager() {
         ConcurrentMapCacheManager concurrentMapCacheManager = new ConcurrentMapCacheManager();
-        concurrentMapCacheManager.setCacheNames(Arrays.asList("deforestation"));        
+        concurrentMapCacheManager.setCacheNames(Arrays.asList("furnas"));        
 
         return concurrentMapCacheManager;
     }

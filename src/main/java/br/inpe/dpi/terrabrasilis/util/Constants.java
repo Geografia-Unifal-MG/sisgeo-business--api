@@ -39,5 +39,5 @@ public final class Constants implements Serializable {
 	/**
          * cache names
          */		
-        public static final String CACHE_DEFORESTATION = "deforestation";
+        public static final String CACHE_DEFORESTATION = "furnas";
 }
