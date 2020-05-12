@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.inpe.dpi.terrabrasilis</groupId>
-	<artifactId>business-api</artifactId>
+	<artifactId>sisgeo-business-api</artifactId>
 	<version>v1.0</version>
 	<name>business-api</name>
 	<description>Business API delivery the data to mount the visions in Sisgeo application</description>
