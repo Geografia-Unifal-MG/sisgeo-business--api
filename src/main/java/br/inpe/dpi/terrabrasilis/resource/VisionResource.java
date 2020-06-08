@@ -1,6 +1,5 @@
 package br.inpe.dpi.terrabrasilis.resource;
 
-import br.inpe.dpi.terrabrasilis.domain.Download;
 import static br.inpe.dpi.terrabrasilis.util.Constants.*;
 
 import java.io.Serializable;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.inpe.dpi.terrabrasilis.domain.Layer;
-import br.inpe.dpi.terrabrasilis.domain.Tool;
 import br.inpe.dpi.terrabrasilis.domain.Vision;
 import br.inpe.dpi.terrabrasilis.domain.VisionDTO;
 import br.inpe.dpi.terrabrasilis.exception.VisionAlreadyExistsException;
@@ -51,8 +49,8 @@ public class VisionResource implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final Logger logger = LoggerFactory.getLogger(VisionResource.class);
 	
-	private VisionService visionService;
-	private VisionToVisionService visionToVisionService;
+	private final VisionService visionService;
+	private final VisionToVisionService visionToVisionService;
 	
 	public VisionResource(VisionService visionService, VisionToVisionService visionToVisionService) {
 		this.visionService = visionService;
@@ -134,22 +132,12 @@ public class VisionResource implements Serializable {
 					if(vision.getStackOrder() != toUpdate.getStackOrder()) {
 						toUpdate.setStackOrder(vision.getStackOrder());
 					}
-                                        
-//					if(vision.isEnabled() != toUpdate.isEnabled()) {
-//						toUpdate.setEnabled(vision.isEnabled());
-//					}
 					
 					List<Layer> layers = new ArrayList<>(toUpdate.getLayers());
-					List<Tool> tools = new ArrayList<>(toUpdate.getTools());
-                                        List<Download> downloads = new ArrayList<>(toUpdate.getDownloads());
 					
 					layers.addAll(vision.getLayers());
-					tools.addAll(vision.getTools());
-                                        downloads.addAll(vision.getDownloads());
 					
 					toUpdate.setLayers(layers);
-					toUpdate.setTools(tools);
-                                        toUpdate.setDownloads(downloads);
 
 					return this.visionService.save(toUpdate);
 				})

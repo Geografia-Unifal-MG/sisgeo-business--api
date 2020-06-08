@@ -25,26 +25,21 @@ public class Layer implements Serializable {
 
 	@Id
 	private String id;
-	//@Indexed(unique = true)
 	private String name;
 	private String title;
 	private String description;
-	private String attribution;
 	private String workspace;
-    private String dashboard;
-	private String capabilitiesUrl;
 	private int stackOrder;
 	private double opacity;
 	@Indexed
 	private boolean baselayer;
 	private boolean active;
 	private boolean enabled;
-	private boolean timeDimension;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime created;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
         private LocalDateTime date;
-	private boolean aggregatable;
+        
+        private String metadataId;
+        private String downloadId;
 
 	@DBRef
 	@Indexed
@@ -53,14 +48,6 @@ public class Layer implements Serializable {
 	private List<Tool> tools;
 	@DBRef
 	private List<Subdomain> subdomains;
-	@DBRef
-	private List<Download> downloads;
-        @DBRef
-        private Metadata metadata;
-
-	public Layer() {
-		this.created = LocalDateTime.now();
-	}
 
 	public String getId() {
 		return id;
@@ -94,28 +81,12 @@ public class Layer implements Serializable {
 		this.description = description;
 	}
 
-	public String getAttribution() {
-		return attribution;
-	}
-
-	public void setAttribution(String attribution) {
-		this.attribution = attribution;
-	}
-
 	public String getWorkspace() {
 		return workspace;
 	}
 
 	public void setWorkspace(String workspace) {
 		this.workspace = workspace;
-	}
-
-	public String getCapabilitiesUrl() {
-		return capabilitiesUrl;
-	}
-
-	public void setCapabilitiesUrl(String capabilitiesUrl) {
-		this.capabilitiesUrl = capabilitiesUrl;
 	}
 
 	public int getStackOrder() {
@@ -157,14 +128,6 @@ public class Layer implements Serializable {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-
-	public LocalDateTime getCreated() {
-		return created;
-	}
-
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
-	}
         
         public LocalDateTime getDate() {
             return date;
@@ -182,16 +145,6 @@ public class Layer implements Serializable {
 		this.datasource = datasource;
 	}
 
-        public String getDashboard() {
-            return dashboard;
-        }
-
-        public void setDashboard(String dashboard) {
-            this.dashboard = dashboard;
-        }
-        
-        
-
 	public List<Subdomain> getSubdomains() {
 		return this.subdomains == null ? Collections.emptyList() : Collections.unmodifiableList(this.subdomains);
 	}
@@ -207,38 +160,26 @@ public class Layer implements Serializable {
 	public void setTools(List<Tool> tools) {
 		this.tools = tools;
 	}
-
-	public List<Download> getDownloads() {
-		return this.downloads == null ? Collections.emptyList() : Collections.unmodifiableList(this.downloads);
-	}
-
-	public void setDownloads(List<Download> downloads) {
-		this.downloads = downloads;
-	}
-
-	public void setTimeDimension(boolean timeDimension) {
-		this.timeDimension = timeDimension;
-	}
-
-	public boolean getTimeDimension() {
-		return this.timeDimension;
-	}
         
-        public Metadata getMetadata() {
-            return metadata;
+        public String getDownloadId() {
+            return downloadId;
         }
 
-        public void setMetadata(Metadata metadata) {
-            this.metadata = metadata;
-        }        
+        public void setDownloadId(String downloadId) {
+            this.downloadId = downloadId;
+        }
+        
+        public String getMetadataId() {
+            return metadataId;
+        }
 
-	public boolean isAggregatable() {
-		return this.aggregatable;
-	}
+        public void setMetadataId(String metadataId) {
+            this.metadataId = metadataId;
+        }
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(capabilitiesUrl, datasource, id, name, workspace);
+		return Objects.hash(datasource, id, name, workspace);
 	}
 
 	@Override
@@ -250,7 +191,7 @@ public class Layer implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Layer other = (Layer) obj;
-		return Objects.equals(capabilitiesUrl, other.capabilitiesUrl) && Objects.equals(datasource, other.datasource)
+		return Objects.equals(datasource, other.datasource)
 				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
 				&& Objects.equals(workspace, other.workspace);
 	}
@@ -259,14 +200,13 @@ public class Layer implements Serializable {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Layer [id=").append(id).append(", name=").append(name).append(", title=").append(title)
-				.append(", description=").append(description).append(", attribution=").append(attribution)
-				.append(", workspace=").append(workspace).append(", capabilitiesUrl=").append(capabilitiesUrl)
+				.append(", description=").append(description)
+				.append(", workspace=").append(workspace)
 				.append(", stackOrder=").append(stackOrder).append(", opacity=").append(opacity).append(", baselayer=")
 				.append(baselayer).append(", active=").append(active).append(", enabled=").append(enabled)
-				.append(", created=").append(created).append(", datasource=").append(datasource).append(", tools=")
-				.append(tools).append(", subdomains=").append(subdomains).append(", downloads=").append(downloads)
+				.append(", datasource=").append(datasource).append(", tools=")
+				.append(tools).append(", subdomains=").append(subdomains)
 				.append("]");
 		return builder.toString();
 	}
-
 }

@@ -1,20 +1,13 @@
 package br.inpe.dpi.terrabrasilis.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.inpe.dpi.terrabrasilis.enuns.DatasourceType;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 
@@ -32,21 +25,9 @@ public final class Datasource implements Serializable {
 	private String name;
 	private String description;
 	private String host;
-	private String metadata;
 	private boolean enabled;
 	@Indexed
 	private DatasourceType type;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime created;
-	
-	@DBRef
-	private List<Download> downloads;
-	@DBRef
-	private List<Tool> tools;
-	
-	public Datasource() {
-		this.created = LocalDateTime.now();
-	}
 
 	public String getId() {
 		return id;
@@ -79,14 +60,6 @@ public final class Datasource implements Serializable {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	
-	public LocalDateTime getCreated() {
-		return created;
-	}
-
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
-	}
 
 	public String getHost() {
 		return host;
@@ -94,32 +67,6 @@ public final class Datasource implements Serializable {
 
 	public void setHost(String host) {
 		this.host = host;
-	}
-
-	public String getMetadata() {
-		return metadata;
-	}
-
-	public void setMetadata(String metadata) {
-		this.metadata = metadata;
-	}
-
-	public List<Download> getDownloads() {
-		return this.downloads == null ? new ArrayList<Download>() 
-				: Collections.unmodifiableList(this.downloads);
-	}
-
-	public void setDownloads(List<Download> downloads) {
-		this.downloads = downloads;
-	}
-
-	public List<Tool> getTools() {
-		return this.tools == null ? new ArrayList<Tool>() 
-				: Collections.unmodifiableList(this.tools);
-	}
-
-	public void setTools(List<Tool> tools) {
-		this.tools = tools;
 	}
 
 	public void setType(DatasourceType type) {
@@ -153,10 +100,9 @@ public final class Datasource implements Serializable {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Datasource [id=").append(id).append(", name=").append(name).append(", description=")
-				.append(description).append(", host=").append(host).append(", metadata=").append(metadata)
-				.append(", enabled=").append(enabled).append(", created=").append(created)
+				.append(description).append(", host=").append(host)
+				.append(", enabled=").append(enabled)
 				.append(", type=").append(type).append("]");
 		return builder.toString();
 	}
-
 }

@@ -1,7 +1,6 @@
 package br.inpe.dpi.terrabrasilis.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -10,8 +9,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 
@@ -30,19 +27,11 @@ public final class Vision implements Serializable {
 	private String description;
 	private int stackOrder;
 	private boolean enabled;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime created;
 
-	@DBRef
-	private List<Tool> tools;
 	@DBRef
 	private List<Layer> layers;
-	@DBRef
-	private List<Download> downloads;
 
-	public Vision() {
-		this.created = LocalDateTime.now();
-	}
+	public Vision() { }
 
 	public String getId() {
 		return id;
@@ -76,14 +65,6 @@ public final class Vision implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public LocalDateTime getCreated() {
-		return created;
-	}
-
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
-	}
-
 	public int getStackOrder() {
 		return stackOrder;
 	}
@@ -92,28 +73,12 @@ public final class Vision implements Serializable {
 		this.stackOrder = stackOrder;
 	}
 
-	public List<Tool> getTools() {
-		return tools == null ? Collections.emptyList() : Collections.unmodifiableList(this.tools);
-	}
-
-	public void setTools(List<Tool> tools) {
-		this.tools = tools;
-	}
-
 	public List<Layer> getLayers() {
 		return layers == null ? Collections.emptyList() : Collections.unmodifiableList(this.layers);
 	}
 
 	public void setLayers(List<Layer> layers) {
 		this.layers = layers;
-	}
-
-	public List<Download> getDownloads() {
-		return downloads == null ? Collections.emptyList() : Collections.unmodifiableList(this.downloads);
-	}
-
-	public void setDownloads(List<Download> downloads) {
-		this.downloads = downloads;
 	}
 
 	@Override
@@ -138,7 +103,7 @@ public final class Vision implements Serializable {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Vision [id=").append(id).append(", name=").append(name).append(", description=")
 				.append(description).append(", stackOrder=").append(stackOrder).append(", enabled=").append(enabled)
-				.append(", created=").append(created).append(", tools=").append(tools).append(", layers=")
+				.append(", layers=")
 				.append(layers).append("]");
 		return builder.toString();
 	}
