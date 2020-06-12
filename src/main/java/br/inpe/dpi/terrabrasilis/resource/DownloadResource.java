@@ -26,11 +26,7 @@ import br.inpe.dpi.terrabrasilis.service.DownloadService;
 import br.inpe.dpi.terrabrasilis.util.HeaderUtil;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-/**
- * 
- * @author jether
- *
- */
+
 @RestController
 @RequestMapping(API + V1 + DOWNLOAD)
 public class DownloadResource implements Serializable {
@@ -73,7 +69,7 @@ public class DownloadResource implements Serializable {
 	}
 	
 	/**
-	 * POST  /batch : register the downloas in batch.
+	 * POST  /batch : register the downloads in batch.
 	 * 
 	 * @param downloads - list of Download	 
 	 * 

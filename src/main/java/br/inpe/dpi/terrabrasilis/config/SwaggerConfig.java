@@ -30,7 +30,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfo(
           "Sisgeo Business REST API", 
-          "Using this API you can request for all data like Visions, Layers, Tools, Datasources, Downloads and Subddomains", 
+          "Using this API you can request for all data like Visions, Layers, Tools, Datasources, Downloads, Metadata and Subddomains", 
           "0.0.1", 
           "Terms of service", 
           new Contact("Name Placeholder", "https://sisgeo.unifal-mg.edu.br", "placeholder@gmail.com"), 

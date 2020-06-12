@@ -130,15 +130,6 @@ public class DatasourceResource implements Serializable {
 					if(datasource.getType() != null) {
 						toUpdate.setType(datasource.getType());
 					}
-					
-					List<Download> downloads = new ArrayList<>(toUpdate.getDownloads());
-					List<Tool> tools = new ArrayList<>(toUpdate.getTools());
-					
-					downloads.addAll(datasource.getDownloads());
-					tools.addAll(datasource.getTools());
-					
-					toUpdate.setDownloads(downloads);
-					toUpdate.setTools(tools);
 
 					return this.datasourceService.save(toUpdate);
 				})
