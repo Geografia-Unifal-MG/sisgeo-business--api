@@ -26,7 +26,7 @@ public class DownloadServiceImpl implements DownloadService {
 	private DownloadRepository downloadRepository;
 	
 	public DownloadServiceImpl(DownloadRepository downloadRepository) {
-		this.downloadRepository = downloadRepository;
+                this.downloadRepository = downloadRepository;
 	}
 	
 	@Override

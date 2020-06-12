@@ -2,11 +2,6 @@ package br.inpe.dpi.terrabrasilis.util;
 
 import java.io.Serializable;
 
-/**
- * 
- * @author jether
- *
- */
 public final class Constants implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,6 +22,7 @@ public final class Constants implements Serializable {
 	public static final String TOOL = "tool";
 	public static final String DOWNLOAD = "download";
 	public static final String VISION_TO_VISION = "vision-to-vision";
+        public static final String METADATA = "metadata";
 	
 	/**
 	 * spring profiles

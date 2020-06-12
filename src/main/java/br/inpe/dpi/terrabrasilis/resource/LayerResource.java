@@ -26,10 +26,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.inpe.dpi.terrabrasilis.domain.Datasource;
 import br.inpe.dpi.terrabrasilis.domain.Layer;
 import br.inpe.dpi.terrabrasilis.domain.Subdomain;
-import br.inpe.dpi.terrabrasilis.domain.Tool;
 import br.inpe.dpi.terrabrasilis.exception.LayerAlreadyExistsException;
 import br.inpe.dpi.terrabrasilis.service.DatasourceService;
 import br.inpe.dpi.terrabrasilis.service.LayerService;
@@ -38,11 +36,7 @@ import br.inpe.dpi.terrabrasilis.util.HeaderUtil;
 import one.util.streamex.StreamEx;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-/**
- * 
- * @author jether
- *
- */
+
 @RestController
 @RequestMapping(API + V1 + LAYER)
 public class LayerResource implements Serializable {
@@ -80,12 +74,6 @@ public class LayerResource implements Serializable {
 			throw new LayerAlreadyExistsException("A new Layer cannot already "
 					+ "have an ID. This Layer alread existis: " + layer.toString());
 		
-		if (layer.getDatasource() != null) {
-			Optional<Datasource> datasource = datasourceService.findById(layer.getDatasource().getId()).blockOptional();
-			if (datasource.isPresent())
-				layer.setDatasource(datasource.get());
-		}
-		
 		if (!layer.getSubdomains().isEmpty()) {
 			List<Subdomain> subdomains = new ArrayList<Subdomain>();
 			layer.getSubdomains().forEach(s -> {
@@ -118,13 +106,13 @@ public class LayerResource implements Serializable {
 				.flatMap(toUpdate -> {
 					
 					List<Subdomain> subdomains = new ArrayList<>(toUpdate.getSubdomains());
-					Set<Tool> tools = new HashSet<>(toUpdate.getTools());
+					Set<String> toolsIds = new HashSet<>(toUpdate.getToolsIds());
 					
 					subdomains.addAll(layer.getSubdomains());
-					tools.addAll(layer.getTools());
+					toolsIds.addAll(layer.getToolsIds());
                         
 					toUpdate.setSubdomains(StreamEx.of(subdomains).distinct(Subdomain::getId).collect(Collectors.toList()));
-					toUpdate.setTools(StreamEx.of(tools).distinct(Tool::getId).collect(Collectors.toList()));
+					toUpdate.setToolsIds(StreamEx.of(toolsIds).distinct().collect(Collectors.toList()));
                                         
 					return this.layerService.save(toUpdate);
 				})

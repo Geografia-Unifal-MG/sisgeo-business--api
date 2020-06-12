@@ -1,20 +1,13 @@
 package br.inpe.dpi.terrabrasilis.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
-/**
- * 
- * @author jether
- *
- */
 @Document(collection = "tool")
 public final class Tool implements Serializable {
 
@@ -24,16 +17,8 @@ public final class Tool implements Serializable {
 	private String id;
 	@Indexed(unique = true)
 	private String name;
-	private String description;
-	private String tag;
 	private String target;
-	private boolean enabled;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime created;
-	
-	public Tool() {
-		this.created = LocalDateTime.now();
-	}
+        private String selector;
 
 	public String getId() {
 		return id;
@@ -51,30 +36,6 @@ public final class Tool implements Serializable {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
 	public String getTarget() {
 		return target;
 	}
@@ -82,14 +43,14 @@ public final class Tool implements Serializable {
 	public void setTarget(String target) {
 		this.target = target;
 	}
-
-	public LocalDateTime getCreated() {
-		return created;
-	}
-
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
-	}
+        
+        public String getSelector() {
+            return selector;
+        }
+        
+        public void setSelector(String selector){
+            this.selector = selector;
+        }
 
 	@Override
 	public int hashCode() {		
@@ -112,10 +73,9 @@ public final class Tool implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Tool [id=").append(id).append(", name=").append(name).append(", description=")
-				.append(description).append(", tag=").append(tag).append(", target=").append(target)
-				.append(", enabled=").append(enabled).append(", created=").append(created).append("]");
+		builder.append("Tool [id=").append(id).append(", name=").append(name)
+				.append(", target=").append(target)
+				.append("]");
 		return builder.toString();
-	}
-	
+	}	
 }

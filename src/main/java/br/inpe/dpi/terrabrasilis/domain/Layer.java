@@ -13,11 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-/**
- * 
- * @author jether.rodrigues
- *
- */
 @Document(collection = "layer")
 public class Layer implements Serializable {
 
@@ -40,13 +35,10 @@ public class Layer implements Serializable {
         
         private String metadataId;
         private String downloadId;
-
-	@DBRef
-	@Indexed
-	private Datasource datasource;
-	@DBRef
-	private List<Tool> tools;
-	@DBRef
+        private String datasourceId;
+        private List<String> toolsIds;
+        
+        @DBRef
 	private List<Subdomain> subdomains;
 
 	public String getId() {
@@ -136,16 +128,8 @@ public class Layer implements Serializable {
 	public void setDate(LocalDateTime date) {
             this.date = date;
 	}
-
-	public Datasource getDatasource() {
-		return datasource;
-	}
-
-	public void setDatasource(Datasource datasource) {
-		this.datasource = datasource;
-	}
-
-	public List<Subdomain> getSubdomains() {
+        
+        public List<Subdomain> getSubdomains() {
 		return this.subdomains == null ? Collections.emptyList() : Collections.unmodifiableList(this.subdomains);
 	}
 
@@ -153,12 +137,12 @@ public class Layer implements Serializable {
 		this.subdomains = subdomains;
 	}
 
-	public List<Tool> getTools() {
-		return this.tools == null ? Collections.emptyList() : Collections.unmodifiableList(this.tools);
+	public List<String> getToolsIds() {
+		return this.toolsIds == null ? Collections.emptyList() : Collections.unmodifiableList(this.toolsIds);
 	}
 
-	public void setTools(List<Tool> tools) {
-		this.tools = tools;
+	public void setToolsIds(List<String> toolsIds) {
+		this.toolsIds = toolsIds;
 	}
         
         public String getDownloadId() {
@@ -176,10 +160,18 @@ public class Layer implements Serializable {
         public void setMetadataId(String metadataId) {
             this.metadataId = metadataId;
         }
+        
+        public String getDatasourceId(){
+            return datasourceId;
+        }
+        
+        public void setDatasourceId(String datasourceId){
+            this.datasourceId = datasourceId;
+        }
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(datasource, id, name, workspace);
+		return Objects.hash(id, name, workspace);
 	}
 
 	@Override
@@ -191,9 +183,8 @@ public class Layer implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Layer other = (Layer) obj;
-		return Objects.equals(datasource, other.datasource)
-				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(workspace, other.workspace);
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name)
+                            && Objects.equals(workspace, other.workspace);
 	}
 
 	@Override
@@ -204,8 +195,6 @@ public class Layer implements Serializable {
 				.append(", workspace=").append(workspace)
 				.append(", stackOrder=").append(stackOrder).append(", opacity=").append(opacity).append(", baselayer=")
 				.append(baselayer).append(", active=").append(active).append(", enabled=").append(enabled)
-				.append(", datasource=").append(datasource).append(", tools=")
-				.append(tools).append(", subdomains=").append(subdomains)
 				.append("]");
 		return builder.toString();
 	}
