@@ -10,11 +10,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-/**
- * 
- * @author jether
- *
- */
 @Document(collection = "vision")
 public final class Vision implements Serializable {
 
@@ -27,6 +22,7 @@ public final class Vision implements Serializable {
 	private String description;
 	private int stackOrder;
 	private boolean enabled;
+        private int maxLayersActive;
 
 	@DBRef
 	private List<Layer> layers;
@@ -80,6 +76,14 @@ public final class Vision implements Serializable {
 	public void setLayers(List<Layer> layers) {
 		this.layers = layers;
 	}
+        
+        public int getMaxLayersActive(){
+             return maxLayersActive;
+        }
+        
+        public void setMaxLayersActive(int maxLayersActive){
+            this.maxLayersActive = maxLayersActive;
+        }
 
 	@Override
 	public int hashCode() {
