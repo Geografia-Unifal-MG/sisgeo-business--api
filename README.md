@@ -11,16 +11,6 @@ For building instruction take a look at docker folder README.md
 3. Run push.sh
 4. Update Portainer
 
-Configuration based in: `https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api`
-
-Dev access at: 
-    `http://localhost:8090/v2/api-docs`, 
-    `http://localhost:8090/swagger-ui.html`
-
-1. `http://[app-host]:[port]/v2/api-docs`       
-2. `http://[app-host]:[port]/swagger-ui.html`
-3. `http://[app-host]:[port]/api/swagger-ui.html`
-
 #### Relationship
 
 Using NoSQL database, we can use save the collection we all information is need from that collection or use an
